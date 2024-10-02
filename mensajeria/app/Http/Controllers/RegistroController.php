@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registro;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class RegistroController extends Controller
 {
@@ -21,6 +23,7 @@ class RegistroController extends Controller
                 'email' => $request->email,
                 'password' => hash('sha256', $request->password), // Usando SHA-256
             ]);
+
             return response()->json([
                 'message' => 'Usuario creado exitosamente',
                 'user' => $user

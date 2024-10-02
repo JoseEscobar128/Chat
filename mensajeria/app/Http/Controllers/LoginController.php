@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registro;
+use Illuminate\Support\Facades\Auth; // Asegúrate de importar esto al principio del archivo
 
 class LoginController extends Controller
 {
@@ -14,12 +15,11 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Buscar el usuario por el correo electrónico y la contraseña
+        // Verifica las credenciales
         $user = Registro::where('email', $request->email)
-            ->where('password', hash('sha256', $request->password)) // Usando SHA-256
+            ->where('password', hash('sha256', $request->password))
             ->first();
 
-        // Verificar si el usuario existe
         if (!$user) {
             return response()->json([
                 'message' => 'Error de autenticación',
@@ -27,10 +27,13 @@ class LoginController extends Controller
             ], 401);
         }
 
-        // Devolver una respuesta de éxito
+        // Genera el token
+        $token = $user->createToken('YourAppName')->plainTextToken;
+
         return response()->json([
             'message' => 'Inicio de sesión exitoso',
-            'user' => $user
+            'token' => $token,
+            'user' => $user,
         ], 200);
     }
 }
