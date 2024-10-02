@@ -30,17 +30,17 @@ class RegistroController extends Controller
             ], 201);
 
         } catch (ValidationException $e) {
-            // Devolver el JSON con el mensaje de error de validación
+          
             return response()->json([
                 'message' => 'Error de validación',
                 'errors' => $e->validator->errors()
-            ], 422); // Código de estado 422 Unprocessable Entity
+            ], 422); 
         } catch (\Exception $e) {
             // Devolver el JSON con el mensaje de error general
             return response()->json([
                 'message' => 'Error al crear el usuario',
                 'error' => $e->getMessage()
-            ], 500); // Código de estado 500 Internal Server Error
+            ], 500); 
         }
     }
 }

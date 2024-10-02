@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use App\Models\Registro; // Asegúrate de importar el modelo de usuario
+use App\Models\Registro; 
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
